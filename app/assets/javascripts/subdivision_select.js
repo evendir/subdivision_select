@@ -1,18 +1,26 @@
 var SubdivisionSelect = (function() {
   SubdivisionSelect.subdivisionSelector = "select[data-subdivision-selector]";
   SubdivisionSelect.countrySelector = "select[id$=country]";
+  SubdivisionSelect.dataElementName = "country-select";
 
   function SubdivisionSelect(element) {
-    this._countrySelect = element;
-    this._subdivisionSelect = $(element).
-      closest("form").
-      find(SubdivisionSelect.subdivisionSelector);
+    var $element = $(element);
+
+    this._subdivisionSelect = $element;
+
+    if ($element.data(SubdivisionSelect.dataElementName)) {
+      this._countrySelect = document.getElementById($element.data(SubdivisionSelect.dataElementName));
+    } else {
+      this._countrySelect = $element.
+        closest("form").
+        find(SubdivisionSelect.subdivisionSelector);
+    }
   };
 
   SubdivisionSelect.init = function () {
     var klass = this;
 
-    return $(klass.countrySelector).each(function() {
+    return $(klass.subdivisionSelector).each(function() {
       return new klass(this).init();
     });
   };
