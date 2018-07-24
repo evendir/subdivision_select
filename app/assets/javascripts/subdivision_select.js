@@ -13,7 +13,7 @@ var SubdivisionSelect = (function() {
     } else {
       this._countrySelect = $element.
         closest("form").
-        find(SubdivisionSelect.subdivisionSelector);
+        find(SubdivisionSelect.countrySelector);
     }
   };
 

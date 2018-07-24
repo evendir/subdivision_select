@@ -6,11 +6,18 @@ module SubdivisionSelect
       # and the value is a hash with two key/values:
       # - "name" is the most popular/most correct name
       # - "names" is an array of all the names
-      if ISO3166::Country[alpha2].nil?
-        {}
-      else
-        ISO3166::Country[alpha2].subdivisions.map { |k, v| [k, v["name"]] }.to_h
-      end
+      subdivision_hash =
+        if ISO3166::Country[alpha2].nil?
+          {}
+        else
+          ISO3166::Country[alpha2].subdivisions.map { |k, v| [k, v["name"]] }.to_h
+        end
+
+      Hash[
+        SubdivisionSelect.options.priority_subdivisions.fetch(alpha2&.to_sym, []).map do |sd_code|
+          [sd_code, subdivision_hash.delete(sd_code)]
+        end
+      ].merge(subdivision_hash)
     end
 
     def self.get_subdivisions_for_select(alpha2)
