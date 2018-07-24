@@ -14,7 +14,7 @@ module SubdivisionSelect
         end
 
       Hash[
-        SubdivisionSelect.options.priority_subdivisions.fetch(alpha2.to_sym, []).map do |sd_code|
+        SubdivisionSelect.options.priority_subdivisions.fetch(alpha2&.to_sym, []).map do |sd_code|
           [sd_code, subdivision_hash.delete(sd_code)]
         end
       ].merge(subdivision_hash)

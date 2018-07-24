@@ -1,11 +1,10 @@
 module SubdivisionSelect
-  class << self
-    attr_accessor :options
+  def self.configure
+    yield(options)
   end
 
-  def self.configure
-    self.options ||= Configuration.new
-    yield(options)
+  def self.options
+    @options ||= Configuration.new
   end
 
   class Configuration

@@ -1,4 +1,5 @@
 require "rails_helper"
+
 feature "select boxes via FormBuilder and FormTagHelper" do
   before(:each) do
     @address = create(:mass_address)
